@@ -1,0 +1,24 @@
+<app-container>
+  <app-header></app-header>
+  <input
+    type="search"
+    placeholder="Type to search"
+    [(ngModel)]="filterByText"
+  />
+
+  <section class="add-contact">
+    <button routerLink="/form">
+      <img src="assets/plus.png" alt="">
+      <span>Add Contact</span>
+    </button>
+  </section>
+
+  @for (letter of alphabet; track letter){
+    <app-separator>
+      {{ letter }}
+    </app-separator>
+    @for (contact of filterContactsByInitialLeter(letter); track contact.id) {
+      <app-contact [name]="contact.name" [phone]="contact.phone"></app-contact>
+    }
+  }
+</app-container>

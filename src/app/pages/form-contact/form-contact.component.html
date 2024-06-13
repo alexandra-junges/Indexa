@@ -1,0 +1,101 @@
+<app-container>
+  <header>
+    <section class="header-link">
+      <img src="assets/logo.png" alt="">
+      <div>
+        <button>
+          <img class="arrow" src="assets/arrow-left.png" alt="">
+          <a rounterLink="/contact-list">Back</a>
+        </button>
+      </div>
+    </section>
+
+    <section class="header-contact">
+      <img src="assets/add-contact.png" alt="">
+      <h1>Add Contact</h1>
+    </section>
+  </header>
+
+  <form [formGroup]="contactForm" (ngSubmit)="saveContact()">
+    <label for="name">Name</label>
+    <input
+      type="text"
+      id="name"
+      placeholder="Type the contact name"
+      formControlName="name"
+    />
+    @if(contactForm.get('name')?.errors && contactForm.get('name')?.touched ) {
+      <div class="message-erro">
+        Required field
+      </div>
+    }
+    <label for="phone">Phone</label>
+    <input
+      type="text"
+      id="phone"
+      placeholder="Type the contact phone"
+      formControlName="phone"
+    />
+    @if(contactForm.get('phone')?.errors && contactForm.get('phone')?.touched ) {
+      <div class="message-erro">
+        Required field
+      </div>
+    }
+    <label for="email">E-mail</label>
+    <input
+      type="text"
+      id="email"
+      placeholder="Type the contact email"
+      formControlName="email"
+    />
+    @if(contactForm.get('email')?.errors?.['required'] && contactForm.get('email')?.touched ) {
+      <div class="message-erro">
+        Required field
+      </div>
+    }
+    @if(contactForm.get('email')?.errors?.['email'] && contactForm.get('email')?.touched ) {
+      <div class="message-erro">
+        Invalid email format
+      </div>
+    }
+
+    <app-separator></app-separator>
+
+    <label for="birthday">Birthday</label>
+    <input
+      type="date"
+      id="birthday"
+      placeholder="Date of birth"
+      formControlName="birthday"
+    />
+
+    <label for="media">Social Media</label>
+    <div class="input-container">
+      <span class="span-http">http://</span>
+      <input
+        type="url"
+        id="media"
+        placeholder="Add the page URL"
+        formControlName="media"
+      />
+    </div>
+
+    <label for="comments">Comments</label>
+    <textarea
+      type="text"
+      id="comments"
+      placeholder="Add comments in this field"
+      formControlName="comments"
+    ></textarea>
+
+    <section class="buttons">
+      <button (click)="cancel()" class="button-cancel" type="button">Cancel</button>
+      <button
+        [disabled]="contactForm.invalid"
+        [ngClass]="contactForm.valid ? 'button-save' : 'button-disabled'"
+        type="submit">
+        Save Contact
+      </button>
+    </section>
+  </form>
+</app-container>
